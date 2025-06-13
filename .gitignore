@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp/
+.pnp.js
+
+# build outputs
+/dist
+/build
+/out
+.cache/
+*.log
+
+# editor/IDE files
+.vscode/ 
+.idea/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+.next/
+out/
