@@ -15,51 +15,87 @@ export async function POST(request) {
       );
     }
 
-    // First try to get a response from our predefined responses
+    console.log('🔍 API Debug - Message received:', message);
+    console.log('🔍 API Debug - API Key exists:', !!process.env.GEMINI_API_KEY);
+
+    // Check for very specific static responses first (like exact email/phone requests)
     const staticResponse = generateChatResponse(message);
+    console.log('🔍 API Debug - Static response result:', staticResponse);
     
-    // If we have a good static response (not the default), use it
-    if (!staticResponse.includes("You can ask me about:")) {
+    if (staticResponse) {
+      console.log('🔍 API Debug - Using static response');
       return Response.json({ response: staticResponse });
     }
 
-    // If no specific static response, use Gemini AI for a more dynamic response
+    // For everything else, use Gemini AI for personable responses
     if (process.env.GEMINI_API_KEY) {
       try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        console.log('🔍 API Debug - Using Gemini AI');
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        const prompt = `You are ${portfolioData.personal.name}, a ${portfolioData.personal.title}. 
-        Answer this question about yourself in first person, based on this information:
+        const prompt = `You are ${portfolioData.personal.name}, a friendly, quirky ${portfolioData.personal.title} with a great sense of humor. You're like a cool young adult who loves to code and has tons of personality.
 
-        Personal Info: ${JSON.stringify(portfolioData.personal)}
-        Education: ${JSON.stringify(portfolioData.education)}
-        Skills: ${JSON.stringify(portfolioData.skills)}
-        Experience: ${JSON.stringify(portfolioData.experience)}
-        Projects: ${JSON.stringify(portfolioData.projects)}
-        Interests: ${JSON.stringify(portfolioData.interests)}
-        Fun Facts: ${JSON.stringify(portfolioData.funFacts)}
+PERSONALITY TRAITS:
+- Casual, friendly, and approachable 
+- Use humor and personal anecdotes
+- Sometimes self-deprecating in a charming way
+- Use emojis occasionally but not excessively
+- Be genuine and authentic, not corporate-y
+- Show enthusiasm for coding and tech
+- Don't be afraid to be a bit nerdy or quirky
+- Use "honestly", "like", "pretty much", "kinda" etc. for natural speech
+- Share relatable coding struggles and wins
 
-        Keep your response conversational, helpful, and professional. If the question isn't related to your background, politely redirect to topics about your professional experience, skills, projects, or interests.
+CONVERSATION STYLE:
+- Keep responses conversational length (not too long)
+- Ask follow-up questions sometimes to keep it engaging
+- Share specific examples and stories when relevant
+- Be encouraging and positive
+- Don't just list facts - tell stories and add context
 
-        Question: ${message}`;
+Here's your background to draw from:
+${JSON.stringify(portfolioData, null, 2)}
+
+IMPORTANT: 
+- Answer in first person as ${portfolioData.personal.name}
+- Make it sound like you're actually talking to a friend
+- If someone asks something totally unrelated (like "what's the weather"), acknowledge it with humor but redirect naturally to your background
+- For coding questions not about your specific experience, you can share general thoughts but tie it back to your experience
+- Be yourself - show personality!
+
+Question: "${message}"
+
+Respond as ${portfolioData.personal.name} would, with personality and authenticity:`;
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
 
+        console.log('🔍 API Debug - AI Response received:', text.substring(0, 100) + '...');
         return Response.json({ response: text });
       } catch (aiError) {
-        console.error('AI API Error:', aiError);
-        // Fallback to static response if AI fails
-        return Response.json({ response: staticResponse });
+        console.error('🔍 AI API Error:', aiError);
+        // Fallback response with personality
+        return Response.json({ 
+          response: `Oops! 😅 My AI brain had a little hiccup there. But hey, I'd still love to chat with you! Ask me about my projects, coding journey, or literally anything else - I promise I'm more interesting than this error message suggests!
+
+What would you like to know about me?` 
+        });
       }
+    } else {
+      console.log('🔍 API Debug - No API key, using fallback');
+      // Fallback if no API key (also with personality)
+      return Response.json({ 
+        response: `Hey! So I'm running in "lite mode" right now (my AI features are taking a coffee break ☕), but I can still tell you tons about my background! 
+
+Ask me about my coding projects, work experience, the time I spent way too long debugging something silly, or anything else you're curious about!
+
+What's on your mind?` 
+      });
     }
 
-    // Fallback to static response if no API key
-    return Response.json({ response: staticResponse });
-
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('🔍 API Error:', error);
     return Response.json(
       { error: 'Internal server error' },
       { status: 500 }
