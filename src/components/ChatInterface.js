@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import Message from './Message';
 import TypingIndicator from './TypingIndicator';
 import { getWelcomeMessage } from '../utils/chatResponses';
 
-export default function ChatInterface() {
+const ChatInterface = forwardRef((props, ref) => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -27,12 +27,13 @@ export default function ChatInterface() {
     setMessages([{ text: welcomeMessage, isUser: false, timestamp: Date.now() }]);
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!inputValue.trim() || isLoading) return;
+  const sendMessage = async (messageText = null) => {
+    const userMessage = messageText || inputValue.trim();
+    if (!userMessage || isLoading) return;
 
-    const userMessage = inputValue.trim();
-    setInputValue('');
+    if (!messageText) {
+      setInputValue('');
+    }
     setIsLoading(true);
 
     // Add user message
@@ -85,6 +86,16 @@ export default function ChatInterface() {
       setMessages(prev => [...prev, errorMessage]);
       setIsLoading(false);
     }
+  };
+
+  // Expose sendMessage function to parent component
+  useImperativeHandle(ref, () => ({
+    sendMessage
+  }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await sendMessage();
   };
 
   const handleKeyPress = (e) => {
@@ -160,4 +171,8 @@ export default function ChatInterface() {
       </div>
     </div>
   );
-}
+});
+
+ChatInterface.displayName = 'ChatInterface';
+
+export default ChatInterface;
