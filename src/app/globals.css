@@ -16,8 +16,8 @@ body {
 }
 
 body {
-  color: rgb(255, 255, 255);
-  background: #212121;
+  color: #1e293b;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -32,20 +32,21 @@ a {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #2f2f2f;
+  background: #f1f5f9;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4d4d4f;
-  border-radius: 3px;
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: #94a3b8;
 }
 
 /* Typing indicator animation */
@@ -53,7 +54,7 @@ a {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #666;
+  background-color: #64748b;
   display: inline-block;
   margin: 0 2px;
   animation: typing 1.5s ease-in-out infinite;
@@ -74,10 +75,10 @@ a {
 @keyframes typing {
   0%, 60%, 100% {
     transform: translateY(0px);
-    opacity: 0.5;
+    opacity: 0.4;
   }
   30% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     opacity: 1;
   }
 }
@@ -96,29 +97,69 @@ a {
 
 /* Profile image styles */
 .profile-image {
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
 }
 
 .profile-image:hover {
   transform: scale(1.05);
+  box-shadow: 0 20px 40px -5px rgba(59, 130, 246, 0.4), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
 }
 
 /* Custom button styles */
 .send-button {
   transition: all 0.2s ease-in-out;
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
 }
 
-.send-button:hover {
-  background-color: #0d8a69;
-  transform: scale(1.05);
+.send-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .send-button:active {
-  transform: scale(0.95);
+  transform: translateY(0px);
 }
 
 /* Input focus styles */
 .chat-input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Quick topic buttons */
+.quick-topic {
+  transition: all 0.2s ease-in-out;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+}
+
+.quick-topic:hover {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass effect for sidebar */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(248, 250, 252, 0.8);
+  border-right: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Fun elements */
+.bounce-on-hover:hover {
+  animation: bounceSubtle 0.6s ease-in-out;
+}
+
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }

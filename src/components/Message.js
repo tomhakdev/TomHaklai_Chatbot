@@ -1,18 +1,20 @@
 export default function Message({ message, isUser }) {
   return (
-    <div className={`flex items-start space-x-3 px-4 py-3 animate-fade-in ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-        isUser ? 'bg-blue-600' : 'bg-chat-green'
+    <div className={`flex items-start space-x-3 px-6 py-4 animate-fade-in ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-message ${
+        isUser 
+          ? 'bg-gradient-to-r from-chat-blue to-primary text-white' 
+          : 'bg-gradient-to-r from-chat-tom to-primary-dark text-white'
       }`}>
-        <span className="text-white text-sm font-medium">
-          {isUser ? 'Y' : 'A'}
+        <span className="text-sm font-bold">
+          {isUser ? 'Y' : 'T'}
         </span>
       </div>
-      <div className="flex-1">
-        <div className={`rounded-lg px-4 py-3 max-w-4xl ${
+      <div className="flex-1 max-w-4xl">
+        <div className={`rounded-2xl px-5 py-4 shadow-message ${
           isUser 
-            ? 'bg-blue-600 text-white ml-auto' 
-            : 'bg-chat-secondary text-chat-text'
+            ? 'bg-gradient-to-r from-chat-blue to-primary text-white ml-auto' 
+            : 'bg-white text-chat-text border border-chat-border'
         }`}>
           <div className="whitespace-pre-wrap text-sm leading-relaxed">
             {message}

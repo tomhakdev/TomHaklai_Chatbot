@@ -14,10 +14,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#212121" />
+        <meta name="theme-color" content="#3b82f6" />
       </head>
       <body className="antialiased">
-        <div className="min-h-screen bg-chat-bg text-chat-text">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
           {children}
         </div>
       </body>

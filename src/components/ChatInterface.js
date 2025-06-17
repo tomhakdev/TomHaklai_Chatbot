@@ -108,7 +108,7 @@ const ChatInterface = forwardRef((props, ref) => {
   return (
     <div className="flex flex-col h-full">
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         <div className="space-y-4 py-4">
           {messages.map((message, index) => (
             <Message
@@ -123,7 +123,7 @@ const ChatInterface = forwardRef((props, ref) => {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-chat-border bg-chat-bg p-4">
+      <div className="border-t border-chat-border bg-white/80 backdrop-blur-sm p-4 flex-shrink-0">
         <form onSubmit={handleSubmit} className="flex items-end space-x-3">
           <div className="flex-1 relative">
             <textarea
@@ -132,11 +132,11 @@ const ChatInterface = forwardRef((props, ref) => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask me about my background, skills, projects, or anything else..."
-              className="chat-input w-full resize-none rounded-lg border border-chat-border bg-chat-secondary text-chat-text placeholder-chat-text-secondary px-4 py-3 pr-12 focus:border-chat-green transition-colors duration-200"
+              className="chat-input w-full resize-none rounded-2xl border-2 border-chat-border bg-white text-chat-text placeholder-chat-text-secondary px-4 py-3 transition-all duration-200 focus:border-primary shadow-soft"
               rows="1"
               style={{
                 minHeight: '48px',
-                maxHeight: '120px',
+                maxHeight: '100px',
                 overflowY: inputValue.length > 100 ? 'auto' : 'hidden'
               }}
               disabled={isLoading}
@@ -145,7 +145,7 @@ const ChatInterface = forwardRef((props, ref) => {
           <button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
-            className="send-button flex items-center justify-center w-12 h-12 rounded-lg bg-chat-green text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+            className="send-button flex items-center justify-center w-12 h-12 rounded-2xl text-white disabled:opacity-50 disabled:cursor-not-allowed shadow-soft"
           >
             <svg
               width="20"
@@ -165,8 +165,10 @@ const ChatInterface = forwardRef((props, ref) => {
             </svg>
           </button>
         </form>
-        <div className="mt-2 text-xs text-chat-text-secondary text-center">
-          Press Enter to send, Shift+Enter for new line
+        <div className="mt-2 text-xs text-chat-text-secondary text-center flex items-center justify-center gap-2">
+          <div className="w-1 h-1 bg-accent rounded-full animate-pulse"></div>
+          <span>Press Enter to send, Shift+Enter for new line</span>
+          <div className="w-1 h-1 bg-accent rounded-full animate-pulse"></div>
         </div>
       </div>
     </div>

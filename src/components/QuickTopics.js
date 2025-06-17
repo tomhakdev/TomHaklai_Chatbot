@@ -25,25 +25,10 @@ const quickTopics = [
     query: "Tell me about your education at Queen's University"
   },
   {
-    emoji: "🎯",
-    label: "Interests & Hobbies",
-    query: "What do you do for fun? What are your hobbies and interests?"
-  },
-  {
     emoji: "📞",
     label: "Contact Info",
     query: "How can I get in touch with you?"
   },
-  {
-    emoji: "🎮",
-    label: "Favorites & Fun Facts", 
-    query: "Tell me some fun facts about yourself and your favorite things"
-  },
-  {
-    emoji: "✈️",
-    label: "Travel & Experiences",
-    query: "Where have you traveled and what interesting experiences have you had?"
-  }
 ];
 
 export default function QuickTopics() {
@@ -54,15 +39,15 @@ export default function QuickTopics() {
   };
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-2">
       {quickTopics.map((topic, index) => (
         <div
           key={index}
           onClick={() => handleTopicClick(topic.query)}
-          className="p-2 rounded bg-chat-hover cursor-pointer hover:bg-chat-border transition-colors text-xs flex items-center gap-2"
+          className="quick-topic p-3 rounded-xl cursor-pointer text-sm flex items-center gap-3 group"
         >
-          <span>{topic.emoji}</span>
-          <span>{topic.label}</span>
+          <span className="text-lg group-hover:scale-110 transition-transform duration-200">{topic.emoji}</span>
+          <span className="text-chat-text font-medium">{topic.label}</span>
         </div>
       ))}
     </div>
