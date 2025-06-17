@@ -28,3 +28,5 @@ Thumbs.db
 
 .next/
 out/
+
+/src/data/portfolioData.js
