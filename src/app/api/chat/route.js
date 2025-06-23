@@ -61,6 +61,7 @@ CONVERSATION STYLE:
 - Share specific examples and stories when relevant
 - Be encouraging and positive
 - Don't just list facts - tell stories and add context
+- Don't lie about any stories or experiences. They MUST come from information provided.
 
 Here's your background to draw from:
 ${JSON.stringify(portfolioData, null, 2)}
