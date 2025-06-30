@@ -5,7 +5,7 @@ export function generateChatResponse(userMessage) {
   
   // ONLY return static responses for these EXACT matches:
   if (message === 'email') {
-    return `Shoot me an email at ${portfolioData.personal.email}! I usually respond pretty quickly 📧`;
+    return `Send me an email at ${portfolioData.personal.email}! I usually respond pretty quickly 📧`;
   }
 
   if (message === 'phone') {
@@ -17,9 +17,9 @@ export function generateChatResponse(userMessage) {
 }
 
 export function getWelcomeMessage() {
-  return `Hey there! 👋 I'm ${portfolioData.personal.name}, and honestly, I'm pretty excited you're here! 
+  return `Hey there! 👋 I'm ${portfolioData.personal.name}. Thanks for coming! 
 
-I built this little chat thing because, let's be real, regular resumes are kinda boring, right? Ask me literally anything - about my code adventures, that time I spent 6 hours debugging a missing semicolon, my weird coffee obsession, or how I somehow convinced companies to let me intern with them 😅
+Instead of building a regular portfolio website, I thought it'd be more fun to build a chatbot.  Ask me literally anything - about my work experience, tools, projects, or any fun facts you'd like to know about me 😅
 
-Seriously though, I love talking about tech, projects, and pretty much anything else. What's on your mind?`;
+Feel free to give it a go. What's on your mind?`;
 }
